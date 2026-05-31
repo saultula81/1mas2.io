@@ -1,0 +1,109 @@
+/* Reset and Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
+
+body {
+    background-color: var(--clr-bg-dark);
+    color: var(--clr-text-light);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-lg) var(--spacing-sm);
+    gap: var(--spacing-xl);
+}
+
+/* Reproductor Simple */
+.player-simple {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.player-simple__btn {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--clr-accent), var(--clr-accent-glow));
+    border: none;
+    color: var(--clr-bg-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 229, 255, 0.4);
+    transition: var(--transition);
+}
+
+.player-simple__btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 229, 255, 0.6);
+}
+
+.player-simple__btn--active {
+    background: transparent;
+    border: 2px solid var(--clr-accent);
+    color: var(--clr-accent);
+    animation: neonPulse 1s infinite alternate ease-in-out;
+}
+
+@keyframes neonPulse {
+    0% {
+        box-shadow: 0 0 10px rgba(0, 229, 255, 0.2), 0 0 20px rgba(0, 229, 255, 0.1);
+        transform: scale(0.98);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(0, 229, 255, 0.8), 0 0 40px rgba(0, 229, 255, 0.6), 0 0 60px rgba(0, 229, 255, 0.4);
+        transform: scale(1.05);
+    }
+}
+
+.player-simple__label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--clr-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Messenger / Request Frame Block */
+.messenger {
+    width: 100%;
+    max-width: 600px;
+    background: var(--glass-bg);
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    margin-bottom: var(--spacing-xl);
+}
+
+.messenger__frame-container {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: transparent;
+}
+
+/* Responsiveness */
+@media (max-width: 480px) {
+    .messenger {
+        padding: var(--spacing-md);
+        border-radius: var(--radius-lg);
+    }
+}

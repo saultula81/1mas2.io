@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Radio Gracia y Paz</title>
+    <!-- Carga del Design System y Estilos BEM -->
+    <link rel="stylesheet" href="variables.css">
+    <link rel="stylesheet" href="main.module.css">
+</head>
+<body class="page">
+
+    <!-- Reproductor Simple -->
+    <main class="player-simple">
+        <button id="play-btn" class="player-simple__btn" aria-label="Reproducir Radio">
+            <!-- Icono de Play SVG -->
+            <svg id="icon-play" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+            </svg>
+            <!-- Icono de Pausa SVG (Oculto por defecto) -->
+            <svg id="icon-pause" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+            </svg>
+        </button>
+        <span class="player-simple__label" id="status-label">Transmitiendo en vivo</span>
+    </main>
+
+    <!-- Pedidos de Canción (Iframe Mantenido) -->
+    <section class="messenger">
+        <div class="messenger__frame-container">
+            <iframe src="https://reuqest-song.vercel.app/widget/0ec34376-f84d-4de3-946e-82b8228d81ce" width="100%" height="600" frameborder="0" allowtransparency="true" style="background: transparent;"></iframe>
+        </div>
+    </section>
+
+    <script>
+        const audio = new Audio('https://stream.zeno.fm/mfer4shs398uv');
+        const playBtn = document.getElementById('play-btn');
+        const iconPlay = document.getElementById('icon-play');
+        const iconPause = document.getElementById('icon-pause');
+        const statusLabel = document.getElementById('status-label');
+
+        let isPlaying = false;
+
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                iconPlay.style.display = 'block';
+                iconPause.style.display = 'none';
+                statusLabel.innerText = 'En Pausa';
+                playBtn.classList.remove('player-simple__btn--active');
+            } else {
+                audio.play();
+                iconPlay.style.display = 'none';
+                iconPause.style.display = 'block';
+                statusLabel.innerText = 'Escuchando en vivo...';
+                playBtn.classList.add('player-simple__btn--active');
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // Manejar buffer o carga si es necesario
+        audio.addEventListener('waiting', () => {
+            statusLabel.innerText = 'Conectando...';
+        });
+
+        audio.addEventListener('playing', () => {
+            statusLabel.innerText = 'Escuchando en vivo...';
+        });
+    </script>
+</body>
+</html>
